@@ -1,32 +1,42 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<v-app>
+   <v-toolbar app>
+     <v-toolbar-title class="haedline text-uppercase">
+        <router-link to='/' tag='span' style='cursor: pointer'>主页面</router-link>
+     </v-toolbar-title>
+     <v-spacer></v-spacer>
+     <v-flex xs12 sm6 md3>
+       <v-text-field label="电影名字" v-modal="searchString"></v-text-field>
+     </v-flex>
+     <v-btn flat :disabled="!dataAvailable" @click="searchMovie"> <span class="mr-2">搜索 </span></v-btn>
+   </v-toolbar>
+   <v-content>
+      <router-view></router-view>
+   </v-content>
+</v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: 'App',
+  components: {
+    dataAvailable() {
+      return this.searchString !== null && this.searchString !== ''
+    }
+  },
+  data() {
+    return {
+      searchString: ''
+    }
+  },
+  computed: {
 
-#nav {
-  padding: 30px;
+  },
+  methods: {
+    searchMovie(){
+      this.$router.push('/search/' + this.searchString)
+      this.searchString = ''
+    }
+  },
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
