@@ -24,7 +24,7 @@
                         </div>
                     </v-card-title>
                     <v-card-actions class="justify-center">
-                        <v-btn flat color="green" @click="singleMovie(item.imdbID)">
+                        <v-btn rounded color="green" dark @click="singleMovie(item.imdbID)">
                             View
                         </v-btn>
                     </v-card-actions>

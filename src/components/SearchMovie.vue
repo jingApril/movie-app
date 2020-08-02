@@ -51,7 +51,7 @@ export default {
     const url = 'http://www.omdbapi.com/?apikey=7b93999a&Content-Type=application/json' + '&s=' + this.name
     axios.get(url)
       .then(res => {
-        if( res.Response === 'True') {
+        if (res.Response === 'True') {
           this.movieResponse = res.data.Search
           this.loading = false
           this.noData = false
@@ -70,22 +70,22 @@ export default {
     }
   },
   watch: {
-    name(value) {
-       const url = 'http://www.omdbapi.com/?apikey=7b93999a&Content-Type=application/json' + '&s=' + value
-    axios.get(url)
-      .then(res => {
-          if( res.Response === 'True') {
-          this.movieResponse = res.data.Search
-          this.loading = false
-          this.noData = false
-        } else {
-          this.loading = false
-          this.noData = true
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    name (value) {
+      const url = 'http://www.omdbapi.com/?apikey=7b93999a&Content-Type=application/json' + '&s=' + value
+      axios.get(url)
+        .then(res => {
+          if (res.Response === 'True') {
+            this.movieResponse = res.data.Search
+            this.loading = false
+            this.noData = false
+          } else {
+            this.loading = false
+            this.noData = true
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 
