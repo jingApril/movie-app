@@ -2,17 +2,21 @@
   <v-app>
     <v-toolbar dark>
       <v-toolbar-title class="haedline text-uppercase">
-          <router-link to='/' tag='span' style='cursor: pointer'>主页面</router-link>
+          <router-link to='/' tag='span' style='cursor: pointer'>电影主页面</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-flex xs12 sm6 md3>
-        <v-text-field label="电影名字" value="searchString"></v-text-field>
+        <!-- <v-subheader>电影名字</v-subheader> -->
+        <v-text-field  v-model="searchString"></v-text-field>
       </v-flex>
-      <v-btn text :disabled="!dataAvailable" @click="searchMovie"> <span class="mr-2">搜索 </span></v-btn>
+       <v-btn text
+       :disabled="!dataAvailable"
+       @click="searchMovie"
+       color="primary"> <span class="mr-2">搜索</span></v-btn>
     </v-toolbar>
-    <v-content>
+    <v-main>
         <router-view></router-view>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

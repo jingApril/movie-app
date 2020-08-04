@@ -1,13 +1,13 @@
 <template>
   <v-container v-if="loading">
     <div class="text-xs-ce">
-      <v-progress-circle
+      <v-progress-circular
       indeterminate
       :size="150"
       :width="8"
       color="green"
       >
-      </v-progress-circle>
+      </v-progress-circular>
     </div>
   </v-container>
   <v-container v-else>
@@ -19,27 +19,27 @@
               <v-card-title primary-title>
                 <div>
                   <h2 class="headline mb-0">{{singleMovie.Title}}-- {{singleMovie.Year}}</h2>
-                  <p>{{ singleMovie.Plot}}</p>
+                  <p>{{singleMovie.Plot}}</p>
                   <h3>Actors: </h3>{{singleMovie.Actors}}
                   <h4>Awards:</h4> {{singleMovie.Awards}}
                   <p>Genrs: {{singleMovie.Genrs}}</p>
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn text color="green" @click="back">返回</v-btn>
+                <v-btn rounded color="green" dark  @click="back">返回</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
       </v-layout>
       <v-layout row wrap>
         <v-flex xs12>
-          <div class="text-xs-center">
+          <div class="text-center">
             <v-dialog v-model="dialog" width="500">
-              <v-btn slot="activator" color="green" dark>分数</v-btn>
+                <template v-slot:activator="{ on }"><v-btn v-on="on" class="my-2 green" dark>看评分</v-btn></template>
               <v-card>
                 <v-card-title class="headline grey lighten-2" primary-title>评级</v-card-title>
                 <v-card-text>
-                  <table>
+                  <table style="width:100%" border="1">
                     <tr>
                       <th>Source</th>
                       <th>Ratings</th>
@@ -53,10 +53,7 @@
                 <v-divider></v-divider>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary"
-                   text
-                   @click="dialog = false"
-                  >
+                  <v-btn color="primary" tile dark @click="dialog = false">
                     ok
                   </v-btn>
                 </v-card-actions>
@@ -82,10 +79,10 @@ export default {
     }
   },
   mounted () {
-    axios.get('http://www.omdbapi.com/?apikey=7b93999a&i=tt0209163&Content-Type=application/json')
+    axios.get('http://www.omdbapi.com/?apikey=7b93999a&i=' + this.id + '&Content-Type=application/json')
       .then(res => {
-        this.singleMovie = res
-        this.ratings = this.singleMovie.ratings
+        this.singleMovie = res.data
+        this.ratings = this.singleMovie.Ratings
         this.ratings.forEach(function (ele) {
           ele.Value = parseFloat(ele.Value.split(/\/|%/)[0])
           ele.Value = ele.Value <= 10 ? ele.value / 2 : ele.Value / 20
@@ -100,7 +97,6 @@ export default {
     back () {
       this.$router.push('/')
     }
-
   }
 }
 </script>
